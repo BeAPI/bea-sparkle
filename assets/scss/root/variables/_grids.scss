@@ -1,0 +1,11 @@
+/**
+ * Susy layout
+ */
+
+$susy: (
+	'min-width': 0px,
+	'columns': susy-repeat(24),
+	'gutters': 0.25,
+	'spread': 'wide',
+	'container-spread': 'wider',
+);

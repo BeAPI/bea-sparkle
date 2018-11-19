@@ -1,0 +1,79 @@
+@import 'buttons';
+@import 'containers';
+@import 'lists';
+@import 'seo';
+@import 'svg';
+@import 'texts';
+
+html {
+	box-sizing: border-box;
+}
+
+::-moz-selection {
+	background-color: $color__bg-selection;
+}
+
+::selection {
+	background-color: $color__bg-selection;
+}
+
+*,
+*:before,
+*:after {
+	box-sizing: inherit;
+}
+
+body,
+html {
+	background-color: $color__bg-body;
+}
+
+a {
+	@include link-transition;
+	color: $color__link;
+}
+
+a:visited {}
+
+a:hover,
+a:active {
+	color: $color__link-hover;
+	outline: 0;
+	text-decoration: none;
+}
+
+a:focus {
+	outline: thin;
+	outline-style: dotted;
+	text-decoration: underline;
+}
+
+hr {
+	background-color: $color__text-light;
+	border: 0;
+	height: 2px;
+}
+
+img {
+	height: auto;
+	max-width: 100%;
+	position: relative;
+}
+
+figure {
+	margin: 0;
+}
+
+blockquote {
+	border-left: 2px solid $color__link;
+	margin-left: 0;
+	padding: 0 0 0 $space;
+
+	> p {
+		margin: 0 0 $space;
+	}
+
+	cite {
+		color: $color__text-light;
+	}
+}

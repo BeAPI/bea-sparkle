@@ -1,0 +1,29 @@
+/**
+ * Grid system
+ */
+@import "~susy/sass/susy";
+@import "~susy/sass/plugins/svg-grid"; // import degug grid, REMOVE it when grid works are done
+
+/**
+ * Root styles
+ */
+@import 'root/normalize';
+@import 'root/url-config';
+@import 'root/variables/variables';
+@import 'root/mixins/mixins';
+
+/**
+ * Plugins styles
+ */
+// @import 'plugins/plugins';
+
+/**
+ * Components styles
+ */
+// @import 'blocks/blocks';
+@import 'elements/elements';
+@import 'forms/forms';
+@import 'layouts/layouts';
+@import 'medias/medias';
+@import 'patterns/patterns';
+@import 'patterns/patterns';

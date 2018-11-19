@@ -1,0 +1,246 @@
+@import "utils";
+
+/**
+ * 1. Font and Wording
+ */
+
+// FontFace. GO to root/_fonts.scss to see it in action
+@mixin declare-font-face($font-family, $font-filename, $font-weight : normal, $font-style :normal, $font-stretch : normal){
+	@font-face{
+		font-family: '#{$font-family}';
+		font-weight: $font-weight;
+		font-style: $font-style;
+		font-stretch: $font-stretch;
+		font-display: swap;
+		src: url(#{$font-filename}.woff2) format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+			 url(#{$font-filename}.woff) format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+	}
+}
+
+// Word wrap
+@mixin word-wrap($wrap: break-word) {
+	overflow-wrap: $wrap;
+	word-wrap: $wrap;
+
+	@if $wrap == break-word {
+	  word-break: break-all;
+	} @else {
+	  word-break: $wrap;
+	}
+}
+
+/**
+ * 2. Images
+ */
+
+// Image responsive
+@mixin img__responsive($max-width:100%) {
+	display: block;
+	max-width: $max-width;
+	height: auto;
+}
+
+// Object Fit polyfill
+@mixin object-fit($fit: cover, $position: null) {
+	object-fit: $fit;
+	@if $position {
+		object-position: $position;
+		font-family: 'object-fit: #{$fit}; object-position: #{$position}';
+	} @else {
+		font-family: 'object-fit: #{$fit}';
+	}
+}
+
+/**
+ * 3. Forms
+ */
+
+// Mixin for custom checkbox
+@mixin checkbox--custom($color: $maincolor, $size: 20px, $border-width: 2px) {
+	margin-bottom: 20px;
+	input[type="checkbox"],
+	input[type="radio"] {
+		@extend .visuallyhidden;
+		&+label {
+			display: block;
+			cursor: pointer;
+			position: relative;
+			padding-left: $size * 1.5;
+			&:before {
+				content: '';
+				position: absolute;
+				left: 0;
+				top: 1px;
+				background-color: transparent;
+				width: $size;
+				height: $size;
+				margin: 0;
+				border: $border-width solid $color;
+				cursor: pointer;
+				transition: background-color .25s ease;
+			}
+		}
+		&:checked {
+			&+label {
+				&:before {
+					background-color: $color;
+				}
+			}
+		}
+	}
+}
+
+
+// Custom radio
+@mixin radio--custom() {
+	input[type="radio"] {
+		&+label {
+			&:before {
+				border-radius: 50%;
+			}
+		}
+	}
+}
+
+// Appearence for form elements
+@mixin appearance($value) {
+	appearance: $value;
+}
+
+// Customize placeholder
+@mixin placeholder {
+	$placeholders: ":-webkit-input" ":-moz" "-moz" "-ms-input";
+	@each $placeholder in $placeholders {
+	  &:#{$placeholder}-placeholder {
+		@content;
+	  }
+	}
+}
+
+/**
+ * 4. Miscellaneous
+ */
+
+// Hover Active Focus pseudo selector mixin
+@mixin hover {
+	&:hover, &:active, &:focus {
+		@content;
+	}
+}
+
+// Insert content for extra style
+@mixin pseudo__content {
+	content: "";
+	display: block;
+	speak: none;
+}
+
+// Card base
+@mixin card {
+	padding: $space;
+	box-shadow: 0 2px 4px rgba($darkcolor, .25);
+}
+
+// Float, left by default
+@mixin align($direction:left) {
+	float: $direction;
+	@if ($direction == left) {
+		margin-right: $space;
+	} @else {
+		margin-left: $space;
+	}
+}
+
+//fullwidth row
+@mixin row--fullwidth($position: relative) {
+	z-index: $zindex;
+	position: $position;
+	width: 100vw;
+	left: 50%;
+	transform: translateX(-50%) translateY(0);
+}
+
+// Clearfix
+@mixin clearfix {
+	&::after {
+	  clear: both;
+	  content: "";
+	  display: table;
+	}
+}
+
+// Rem output with px fallback
+@mixin font-size($sizeValue: 1) {
+	font-size: ($sizeValue * 16) * 1px;
+	font-size: $sizeValue * 1rem;
+}
+
+// Center block
+@mixin center-block {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+// FONT STYLES MIXINS TRIGGER
+@mixin font-style($map, $breakpoints: $breakpoints, $name: '') {
+	$breakpoint-value: 0;
+	@each $breakpoint, $font-styles in $map {
+		@if $breakpoint == null {
+			@include make-font-style($font-styles, $name);
+		}
+		@else {
+			// If $font-styles is a key that exists in $breakpoints, use the value
+			@if map-has-key($breakpoints, $breakpoint) {
+				$breakpoint-value: map-get($breakpoints, $breakpoint);
+			}
+
+			@media screen and (min-width: $breakpoint-value) {
+				@include make-font-style($font-styles, $name, $breakpoint);
+			}
+		}
+	}
+}
+
+// Utility function for mixin font-style
+@mixin make-font-style($fonts-styles, $name, $breakpoint: '') {
+	@if type-of($fonts-styles) == "map" {
+    	// If $font-styles is a map, include font-size, font-weight, color, text-transform
+		@each $title, $styles in $fonts-styles {
+			h#{$title} {
+				font-size: nth($styles, 1);
+				font-family: $font__heading;
+				letter-spacing: .8px;
+				@if (length($styles) > 1){ font-weight: nth($styles, 2); }
+				@if (length($styles) > 2){ color: nth($styles, 3); }
+				@if (length($styles) > 3){ font-style: nth($styles, 4); }
+				@if (length($styles) > 4){ text-transform: nth($styles, 5); }
+				line-height: $font__line-height-heading;
+			}
+
+			// Use @extend %title-MyNumberMybreakpoint;
+			%title-#{$title}#{$breakpoint} {
+				font-size: nth($styles, 1);
+				font-family: $font__heading;
+				letter-spacing: .8px;
+				@if (length($styles) > 1){ font-weight: nth($styles, 2); }
+				@if (length($styles) > 2){ color: nth($styles, 3); }
+				@if (length($styles) > 3){ font-style: nth($styles, 4); }
+				@if (length($styles) > 4){ text-transform: nth($styles, 5); }
+				line-height: $font__line-height-heading;
+			}
+		}
+  }
+  @else if type-of($fonts-styles) == "list" {
+	// If $font-styles is a list, include font-size, font-weight, color, text-transform
+	font-size: nth($fonts-styles, 1);
+	@if (length($fonts-styles) > 1){ font-weight: nth($fonts-styles, 2); }
+	@if (length($fonts-styles) > 2){ color: nth($fonts-styles, 3); }
+	@if (length($fonts-styles) > 3){ font-style: nth($fonts-styles, 4); }
+	@if (length($fonts-styles) > 4){ text-transform: nth($fonts-styles, 5); }
+  }
+  @else {
+	font-size: $fonts-styles;
+	line-height: $font__line-height-body;
+  }
+}

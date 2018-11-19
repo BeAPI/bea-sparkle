@@ -1,0 +1,13 @@
+.container {
+    max-width: 1240px + $space-xs*2;
+	width: 100%;
+	padding: 0 $space-xs;
+	margin: 0 auto;
+
+    &--small {
+        max-width: 950px + $space-xs*2;
+        width: 100%;
+        padding: 0 $space-xs;
+        margin: 0 auto;
+    }
+}

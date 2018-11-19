@@ -1,0 +1,92 @@
+// Assign inputs
+@function assign-inputs($inputs, $pseudo: null) {
+	$list: ();
+
+	@each $input in $inputs {
+		$input: unquote($input);
+		$input: if($pseudo, $input + ":" + $pseudo, $input);
+		$list: append($list, $input, comma);
+	}
+
+	@return $list;
+}
+
+// Bourbon's essentials mixins
+$em-base: 16px !default;
+// Strip units
+@function strip-units($value) {
+	@return ($value / ($value * 0 + 1));
+}
+// PX to EM
+@function em($pxval, $base: $em-base) {
+	@if not unitless($pxval) {
+	  $pxval: strip-units($pxval);
+	}
+	@if not unitless($base) {
+	  $base: strip-units($base);
+	}
+	@return ($pxval / $base) * 1em;
+}
+// PX to REM
+@function rem($pxval) {
+	@if not unitless($pxval) {
+	  $pxval: strip-units($pxval);
+	}
+
+	$base: $em-base;
+	@if not unitless($base) {
+	  $base: strip-units($base);
+	}
+	@return ($pxval / $base) * 1rem;
+}
+
+@mixin media( $res ) {
+	@if mobile == $res {
+		@media only screen and (min-width: $mobile_width) {
+			@content;
+		}
+	}
+
+	@if tablet == $res {
+		@media only screen and (min-width: $tablet_width) {
+			@content;
+		}
+	}
+
+	@if desktop == $res {
+		@media only screen and (min-width: $desktop_width) {
+			@content;
+		}
+	}
+
+	@if wide == $res {
+		@media only screen and (min-width: $wide_width) {
+			@content;
+		}
+	}
+}
+
+@mixin link-transition( $attr: color ) {
+	transition: $attr $link_transition ease-in-out;
+}
+
+@mixin button-transition() {
+	transition: background $button_transition ease-in-out;
+}
+
+@mixin button-all-transition() {
+	transition: all $button_transition ease-in-out;
+}
+
+@mixin background-transition() {
+	transition: background $background_transition ease-in-out;
+}
+
+@mixin selection {
+	::-moz-selection {
+		@content;
+	}
+	::selection {
+		@content;
+	}
+}

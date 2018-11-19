@@ -1,0 +1,177 @@
+body {
+	font-size: $font__size-base;
+	line-height: $font__line-height-body;
+	font-family: $font__body;
+	font-weight: 300;
+	color: $textcolor;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	overflow-x: hidden;
+	//Fonts loading FOUT
+	//Adjust FOUT with tools like https://meowni.ca/font-style-matcher/
+	.fonts-loading & {
+		font-family: $font__regular;
+	}
+}
+
+a {
+	color: $textcolor;
+	text-decoration: none;
+	@include hover {
+		color: $textcolor;
+	}
+}
+
+/* Headings
+----------------------------------------------------------------------------------------------------*/
+
+// Responsive titles
+@include font-style($titles-font-styles);
+
+/* Lists
+----------------------------------------------------------------------------------------------------*/
+ol,
+ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+li {
+	margin: 0;
+}
+
+/* Spacing
+----------------------------------------------------------------------------------------------------*/
+p,
+dl,
+hr,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ol,
+ul,
+pre,
+table,
+address,
+fieldset,
+figure {
+	margin: 0 0 $space 0;
+}
+/* Wysiwyg style
+----------------------------------------------------------------------------------------------------*/
+hr {
+	clear: both;
+	border: 0;
+	height: 1px;
+	background: $textcolor;
+}
+blockquote {
+	border-left: 5px solid $textcolor;
+	padding: $space;
+	margin: 0 0 $space 0;
+	-ms-word-wrap: break-word;
+	word-wrap: break-word;
+	p:last-child {
+		margin: 0;
+	}
+}
+cite {
+	font-style: italic;
+}
+small {
+	font-size: 11px;
+}
+table {
+	margin: $space 0;
+	width: 100%;
+	border: $border__base;
+	border-collapse: collapse;
+	border-left: 0;
+	border-radius: $border__radius;
+	th {
+		padding: $space-xs;
+		border-left: 1px solid $color__border;
+		border-top: 0;
+		vertical-align: top;
+		text-align: left;
+	}
+	td {
+		padding: $space-xs;
+		border-top: 1px solid $color__border;
+		border-left: 1px solid $color__border;
+		vertical-align: top;
+		text-align: left;
+	}
+}
+
+address {
+	display: block;
+	margin-bottom: $space;
+	font-style: normal;
+	line-height: 20px;
+}
+abbr {
+	text-decoration: underline;
+}
+abbr[title], abbr[data-original-title] {
+	cursor: help;
+	border-bottom: 1px dotted $color__border;
+}
+big {
+	font-size: larger;
+}
+code {
+	display: inline-block;
+	padding: 2px 5px;
+	background-color: $textcolor;
+	border: 1px solid $darkcolor;
+	font-family: monospace;
+	font-size: $font__size-base;
+	border-radius: $border__radius;
+}
+s,
+strike,
+del {
+	text-decoration: line-through;
+}
+em,
+var {
+	font-style: italic;
+}
+ins {
+	background-color: $textcolor;
+	text-decoration: none;
+}
+tt,
+kbd,
+samp {
+	font-family: monospace;
+}
+pre {
+	display: block;
+	padding: $space-xs;
+	margin: 0 0 $space;
+	@include word-wrap(break-all);
+	white-space: pre-wrap;
+	background-color: $textcolor;
+	border: 1px solid $darkcolor;
+	border-radius: $border__radius;
+}
+q {
+	display: inline;
+	font-style: italic;
+}
+sub,
+sup {
+	bottom: -0.25em;
+	position: relative;
+	font-size: 75%;
+	line-height: 0;
+	vertical-align: baseline;
+}
+sup {
+	top: -0.5em;
+}

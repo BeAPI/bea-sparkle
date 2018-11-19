@@ -1,0 +1,26 @@
+.menu {
+    $el: &;
+    $main: '.menu';
+
+    #{$el}__list {
+        padding-left: 0;
+        list-style: none;
+
+        &--sub {
+            #{$main}__item {
+
+            }
+
+            #{$main}__link {
+                color: $lightcolor;
+                font-weight: 400;
+            }
+        }
+    }
+    #{$el}__item {}
+    #{$el}__link {
+        color: $grey--dark;
+        font-weight: 500;
+        letter-spacing: .8px;
+    }
+}

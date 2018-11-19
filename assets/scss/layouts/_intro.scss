@@ -1,0 +1,17 @@
+.intro {
+    $el: &;
+
+    #{$el}__inner {
+        display: flex;
+        margin-top: 140px;
+    }
+
+    #{$el}__sidebar {
+        width: span(4);
+    }
+
+    #{$el}__content {
+        width: span(13);
+        padding: 0 span(2);
+    }
+}
